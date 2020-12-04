@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import useImages from './hooks/useImages';
+import Header from './components/Header';
+import ImagesGrid from './components/ImagesGrid';
 
 function App() {
+  const [query, setQuery] = useState('')
+  const [amount, setAmount] = useState(5)
+  const { collection } = useImages(query, amount)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header query={query} setQuery={setQuery} amount={amount} setAmount={setAmount} />
+      {collection && (<ImagesGrid images={collection} />)}
+    </>
   );
 }
 
